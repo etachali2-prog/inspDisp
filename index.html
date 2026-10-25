@@ -4,7 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>MELBA Technical Inspection Reports</title>
 
 <style>
@@ -18,9 +17,7 @@
   --border: #dce3ed;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -29,16 +26,14 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-button, input, select {
-  font: inherit;
-}
+button, input, select { font: inherit; }
 
 button {
   cursor: pointer;
   border: none;
   border-radius: 7px;
   padding: 11px 15px;
-  font-weight: 700;
+  font-weight: bold;
 }
 
 .header {
@@ -58,21 +53,9 @@ button {
   flex-wrap: wrap;
 }
 
-.header h1 {
-  margin: 0 0 8px;
-  font-size: 25px;
-}
-
-.header p {
-  margin: 0;
-  color: #dbe5f1;
-  font-size: 14px;
-}
-
-.header a {
-  color: white;
-  text-decoration: none;
-}
+.header h1 { margin: 0 0 8px; font-size: 25px; }
+.header p { margin: 0; color: #dbe5f1; font-size: 14px; }
+.header a { color: white; text-decoration: none; }
 
 .container {
   max-width: 1200px;
@@ -87,21 +70,9 @@ button {
   margin-bottom: 18px;
 }
 
-.btn-primary {
-  background: var(--blue);
-  color: white;
-}
-
-.btn-gold {
-  background: var(--gold);
-  color: #182536;
-}
-
-.btn-light {
-  background: white;
-  color: var(--navy);
-  border: 1px solid var(--border);
-}
+.btn-primary { background: var(--blue); color: white; }
+.btn-gold { background: var(--gold); color: #182536; }
+.btn-light { background: white; color: var(--navy); border: 1px solid var(--border); }
 
 .filters {
   background: white;
@@ -116,13 +87,12 @@ button {
 
 .field label {
   display: block;
-  font-weight: 700;
+  font-weight: bold;
   font-size: 13px;
   margin-bottom: 7px;
 }
 
-.field input,
-.field select {
+.field input, .field select {
   width: 100%;
   padding: 11px;
   border: 1px solid #cbd5e1;
@@ -146,25 +116,10 @@ button {
   border-left: 5px solid var(--blue);
 }
 
-.summary-card.warning {
-  border-left-color: #d97706;
-}
-
-.summary-card.good {
-  border-left-color: #168354;
-}
-
-.summary-card span {
-  display: block;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.summary-card strong {
-  display: block;
-  margin-top: 8px;
-  font-size: 27px;
-}
+.summary-card.warning { border-left-color: #d97706; }
+.summary-card.good { border-left-color: #168354; }
+.summary-card span { display: block; color: var(--muted); font-size: 13px; }
+.summary-card strong { display: block; margin-top: 8px; font-size: 27px; }
 
 .status-message {
   padding: 12px 15px;
@@ -175,15 +130,9 @@ button {
   font-size: 14px;
 }
 
-.status-message.error {
-  background: #fff0f0;
-  color: #a32121;
-}
+.status-message.error { background: #fff0f0; color: #a32121; }
 
-.report-list {
-  display: grid;
-  gap: 20px;
-}
+.report-list { display: grid; gap: 20px; }
 
 .report {
   background: white;
@@ -205,11 +154,7 @@ button {
   flex-wrap: wrap;
 }
 
-.report-header h2 {
-  margin: 0 0 9px;
-  color: var(--navy);
-  font-size: 19px;
-}
+.report-header h2 { margin: 0 0 9px; color: var(--navy); font-size: 19px; }
 
 .meta {
   display: flex;
@@ -219,66 +164,27 @@ button {
   font-size: 13px;
 }
 
-.report-content {
-  padding: 18px;
-}
+.report-content { padding: 18px; }
+.report-title { color: var(--navy); font-weight: bold; margin: 0 0 12px; }
+.table-wrap { overflow-x: auto; }
 
-.report-title {
-  color: var(--navy);
-  font-weight: 700;
-  margin: 0 0 12px;
-}
-
-.table-wrap {
-  overflow-x: auto;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-
-th, td {
-  padding: 10px;
-  border: 1px solid var(--border);
-  text-align: left;
-  vertical-align: top;
-}
-
-th {
-  background: #edf2f8;
-  color: var(--navy);
-}
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { padding: 10px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+th { background: #edf2f8; color: var(--navy); }
 
 .badge {
   display: inline-block;
   border-radius: 20px;
   padding: 5px 9px;
-  font-weight: 700;
+  font-weight: bold;
   font-size: 11px;
   white-space: nowrap;
 }
 
-.badge-ok {
-  background: #d9f5e6;
-  color: #12653b;
-}
-
-.badge-not-ok {
-  background: #ffe0e0;
-  color: #a51f1f;
-}
-
-.badge-not-checked {
-  background: #fff0c7;
-  color: #855900;
-}
-
-.badge-other {
-  background: #e7edf5;
-  color: #34445a;
-}
+.badge-ok { background: #d9f5e6; color: #12653b; }
+.badge-not-ok { background: #ffe0e0; color: #a51f1f; }
+.badge-not-checked { background: #fff0c7; color: #855900; }
+.badge-other { background: #e7edf5; color: #34445a; }
 
 .result-line {
   margin-top: 16px;
@@ -330,56 +236,26 @@ th {
 }
 
 @media (max-width: 800px) {
-  .filters {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .summary {
-    grid-template-columns: 1fr;
-  }
-
-  .signature-grid {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
+  .filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .summary { grid-template-columns: 1fr; }
+  .signature-grid { grid-template-columns: 1fr; gap: 10px; }
 }
 
 @media (max-width: 480px) {
-  .filters {
-    grid-template-columns: 1fr;
-  }
-
-  .header h1 {
-    font-size: 21px;
-  }
+  .filters { grid-template-columns: 1fr; }
+  .header h1 { font-size: 21px; }
 }
 
-@page {
-  size: A4;
-  margin: 12mm;
-}
+@page { size: A4; margin: 12mm; }
 
 @media print {
-  body {
-    background: white;
-    color: black;
-    font-size: 10pt;
-  }
+  body { background: white; color: black; font-size: 10pt; }
 
-  .no-print,
-  .toolbar,
-  .filters,
-  .summary,
-  .footer,
-  .screen-status {
+  .no-print, .toolbar, .filters, .summary, .footer, .screen-status {
     display: none !important;
   }
 
-  .container {
-    max-width: none;
-    padding: 0;
-    margin: 0;
-  }
+  .container { max-width: none; padding: 0; margin: 0; }
 
   .header {
     background: white !important;
@@ -388,18 +264,9 @@ th {
     border-bottom: 3px solid #b18a32;
   }
 
-  .header p,
-  .header a {
-    color: black !important;
-  }
-
-  .header h1 {
-    font-size: 17pt;
-  }
-
-  .report-list {
-    display: block;
-  }
+  .header p, .header a { color: black !important; }
+  .header h1 { font-size: 17pt; }
+  .report-list { display: block; }
 
   .report {
     border: 1px solid #999;
@@ -409,36 +276,13 @@ th {
     break-inside: avoid;
   }
 
-  .report-header {
-    background: white !important;
-  }
-
-  .report-content {
-    padding: 12px;
-  }
-
-  th {
-    background: #eee !important;
-    color: black;
-  }
-
-  th, td {
-    padding: 6px;
-    font-size: 9pt;
-  }
-
-  .signature-grid {
-    gap: 15px;
-    margin-top: 30px;
-  }
-
-  .signature {
-    font-size: 9pt;
-  }
-
-  .report-header h2 {
-    color: black;
-  }
+  .report-header { background: white !important; }
+  .report-content { padding: 12px; }
+  th { background: #eee !important; color: black; }
+  th, td { padding: 6px; font-size: 9pt; }
+  .signature-grid { gap: 15px; margin-top: 30px; }
+  .signature { font-size: 9pt; }
+  .report-header h2 { color: black; }
 }
 </style>
 </head>
@@ -451,35 +295,29 @@ th {
       <h1>MELBA PRINTING, PUBLISHING &amp; PACKAGING S.C.</h1>
       <p>Technical Department | Daily Technical Inspection Reports</p>
     </div>
-
-    <a href="https://etachali2-prog.github.io/To-home/">
-      ← Back to Home
-    </a>
+    <a href="https://etachali2-prog.github.io/To-home/">← Back to Home</a>
   </div>
 </header>
 
 <main class="container">
 
   <div class="toolbar no-print">
-    <button class="btn-primary" onclick="loadReports(true)">
-      ↻ Refresh Reports
-    </button>
-
-    <button class="btn-gold" onclick="printReports()">
-      Print / Save as PDF
-    </button>
-
-    <button class="btn-light" onclick="clearFilters()">
-      Clear Filters
-    </button>
+    <button class="btn-primary" onclick="loadReports(true)">↻ Refresh Reports</button>
+    <button class="btn-gold" onclick="printReports()">Print / Save as PDF</button>
+    <button class="btn-light" onclick="clearFilters()">Clear Filters</button>
   </div>
 
   <section class="filters no-print">
+
     <div class="field">
       <label for="machineSearch">Search machine</label>
-      <input id="machineSearch"
-             type="search"
-             placeholder="Enter machine name">
+      <input
+        id="machineSearch"
+        type="text"
+        list="machineOptions"
+        placeholder="Type machine name..."
+        autocomplete="off">
+      <datalist id="machineOptions"></datalist>
     </div>
 
     <div class="field">
@@ -499,10 +337,9 @@ th {
 
     <div class="field">
       <label for="inspectorSearch">Inspector</label>
-      <input id="inspectorSearch"
-             type="search"
-             placeholder="Inspector name">
+      <input id="inspectorSearch" type="search" placeholder="Inspector name">
     </div>
+
   </section>
 
   <section class="summary">
@@ -510,12 +347,10 @@ th {
       <span>Reports displayed</span>
       <strong id="totalReports">0</strong>
     </div>
-
     <div class="summary-card warning">
       <span>Reports with Not OK items</span>
       <strong id="problemReports">0</strong>
     </div>
-
     <div class="summary-card good">
       <span>Reports with all checked items OK</span>
       <strong id="passedReports">0</strong>
@@ -537,15 +372,11 @@ th {
 <script>
 "use strict";
 
-/*
-  This must be the published CSV URL for your Google Sheet.
-  It is different from the spreadsheet's normal editing URL.
-*/
+/* Published Google Sheets CSV URL */
 const CSV_URL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vS1l0SbrbX0Sfprk8FgH2N_BkSBCqHrnE63nDbA5ZeX6TJpkte16DGmfIMbjHREWkIqE25VXHS_IGmk/pub?gid=0&single=true&output=csv";
 
 let allReports = [];
-let lastLoadedTime = null;
 let loading = false;
 
 const $ = id => document.getElementById(id);
@@ -566,7 +397,7 @@ function escapeHTML(value) {
   })[char]);
 }
 
-/* CSV parser that handles quoted cells and commas inside quoted text. */
+/* Read CSV, including quoted cells containing commas or new lines. */
 function parseCSV(text) {
   const rows = [];
   let row = [];
@@ -656,11 +487,9 @@ function normalizeDate(value) {
   const text = String(value ?? "").trim();
   if (!text) return "";
 
-  // Recognize YYYY-MM-DD or a timestamp beginning with that date.
   const iso = text.match(/^(\d{4})-(\d{2})-(\d{2})/);
   if (iso) return `${iso[1]}-${iso[2]}-${iso[3]}`;
 
-  // Recognize DD/MM/YYYY and DD-MM-YYYY.
   const dmy = text.match(/^(\d{1,2})[/-](\d{1,2})[/-](\d{4})/);
   if (dmy) {
     return `${dmy[3]}-${dmy[2].padStart(2, "0")}-${dmy[1].padStart(2, "0")}`;
@@ -686,31 +515,27 @@ function formatDate(value) {
   return `${parts[2]}/${parts[1]}/${parts[0]}`;
 }
 
+/* Build the reports from the spreadsheet rows. */
 function buildReports(csvText) {
   const rows = parseCSV(csvText);
 
   if (rows.length < 2) {
     allReports = [];
+    updateMachineOptions();
     return;
   }
 
   const headers = rows[0].map(value => String(value).trim());
 
-  const machineIndex = findColumn(headers, [
-    "Machine Name", "Machine"
-  ]);
-
-  const dateIndex = findColumn(headers, [
-    "Inspection Date", "Date"
-  ]);
-
+  const machineIndex = findColumn(headers, ["Machine Name", "Machine"]);
+  const dateIndex = findColumn(headers, ["Inspection Date", "Date"]);
   const inspectorIndex = findColumn(headers, [
     "List of Inspectors", "Inspectors", "Inspector"
   ]);
 
   if (machineIndex === -1 || dateIndex === -1) {
     throw new Error(
-      'The sheet must contain "Machine Name" and "Inspection Date" columns. Check the first row of your Google Sheet.'
+      'Required columns not found. Check for "Machine Name" and "Inspection Date" in the first row of the sheet.'
     );
   }
 
@@ -722,19 +547,11 @@ function buildReports(csvText) {
     if (!match) return;
 
     const itemName = match[1].trim();
-    const type = match[2].toLowerCase();
 
-    if (type === "status") {
-      statusColumns.push({
-        name: itemName,
-        index,
-        remarksIndex: -1
-      });
+    if (match[2].toLowerCase() === "status") {
+      statusColumns.push({ name: itemName, index, remarksIndex: -1 });
     } else {
-      remarksColumns.push({
-        name: itemName,
-        index
-      });
+      remarksColumns.push({ name: itemName, index });
     }
   });
 
@@ -742,31 +559,48 @@ function buildReports(csvText) {
     const remarks = remarksColumns.find(
       col => col.name.toLowerCase() === item.name.toLowerCase()
     );
-
     if (remarks) item.remarksIndex = remarks.index;
   });
 
   allReports = rows.slice(1)
     .filter(row => row.some(cell => String(cell ?? "").trim() !== ""))
-    .map((row, index) => {
-      const checks = statusColumns.map(item => ({
+    .map((row, index) => ({
+      id: index,
+      machine: getCell(row, machineIndex),
+      date: getCell(row, dateIndex),
+      dateISO: normalizeDate(getCell(row, dateIndex)),
+      inspector: getCell(row, inspectorIndex),
+      checks: statusColumns.map(item => ({
         name: item.name,
         status: normalizeStatus(getCell(row, item.index)),
         remarks: item.remarksIndex >= 0
           ? getCell(row, item.remarksIndex)
           : ""
-      }));
-
-      return {
-        id: index,
-        machine: getCell(row, machineIndex),
-        date: getCell(row, dateIndex),
-        dateISO: normalizeDate(getCell(row, dateIndex)),
-        inspector: getCell(row, inspectorIndex),
-        checks
-      };
-    })
+      }))
+    }))
     .reverse();
+
+  updateMachineOptions();
+}
+
+/*
+  Alphabetical autocomplete.
+  Suggestions come from the actual machine names in Google Sheets.
+*/
+function updateMachineOptions() {
+  const machines = [
+    ...new Set(
+      allReports
+        .map(report => report.machine.trim())
+        .filter(Boolean)
+    )
+  ].sort((a, b) => a.localeCompare(b, undefined, {
+    sensitivity: "base"
+  }));
+
+  $("machineOptions").innerHTML = machines.map(machine =>
+    `<option value="${escapeHTML(machine)}"></option>`
+  ).join("");
 }
 
 function reportHasNotOK(report) {
@@ -789,13 +623,22 @@ function getFilteredReports() {
   const inspector = $("inspectorSearch").value.trim().toLowerCase();
 
   return allReports.filter(report => {
-    const machineMatch = report.machine.toLowerCase().includes(machine);
-    const dateMatch = !date || report.dateISO === date;
-    const inspectorMatch = report.inspector.toLowerCase().includes(inspector);
+    /*
+      Starts-with search:
+      S matches machines starting with S.
+      SA matches machines starting with SA.
+      Clear the field to show all machines.
+    */
+    const machineMatch = !machine ||
+      report.machine.toLowerCase().startsWith(machine);
 
-    const statusMatch = !status || report.checks.some(
-      check => check.status === status
-    );
+    const dateMatch = !date || report.dateISO === date;
+
+    const inspectorMatch = report.inspector
+      .toLowerCase().includes(inspector);
+
+    const statusMatch = !status ||
+      report.checks.some(check => check.status === status);
 
     return machineMatch && dateMatch && inspectorMatch && statusMatch;
   });
@@ -810,13 +653,13 @@ function renderReports() {
   $("passedReports").textContent =
     reports.filter(reportHasAllCheckedOK).length;
 
-  if (reports.length === 0) {
+  if (!reports.length) {
     $("reportList").innerHTML =
-      '<div class="empty">No inspection reports match your filters.</div>';
+      '<div class="empty">No inspection reports match your search.</div>';
     return;
   }
 
-  $("reportList").innerHTML = reports.map((report, index) => {
+  $("reportList").innerHTML = reports.map(report => {
     const checks = report.checks;
 
     const checkRows = checks.length
@@ -828,7 +671,7 @@ function renderReports() {
           </tr>
         `).join("")
       : `<tr><td colspan="3">
-          No inspection status columns were found. Check the sheet headers.
+          No inspection status columns found. Check the spreadsheet headers.
         </td></tr>`;
 
     const notOKCount = checks.filter(
@@ -839,13 +682,9 @@ function renderReports() {
       check => check.status === "NOT CHECKED"
     ).length;
 
-    let resultText = "No status data recorded";
-
-    if (checks.length) {
-      resultText =
-        `${notOKCount} Not OK item(s) · ` +
-        `${notCheckedCount} Not Checked item(s)`;
-    }
+    const resultText = checks.length
+      ? `${notOKCount} Not OK item(s) · ${notCheckedCount} Not Checked item(s)`
+      : "No status data recorded";
 
     return `
       <article class="report">
@@ -861,7 +700,6 @@ function renderReports() {
                 ${escapeHTML(report.inspector || "Not recorded")}</span>
             </div>
           </div>
-
           <button class="btn-light no-print"
             onclick="printOneReport(this)">
             Print This Report
@@ -870,7 +708,6 @@ function renderReports() {
 
         <div class="report-content">
           <p class="report-title">Inspection Checklist</p>
-
           <div class="table-wrap">
             <table>
               <thead>
@@ -908,7 +745,6 @@ function renderReports() {
 
 async function loadReports(showLoading = false) {
   if (loading) return;
-
   loading = true;
 
   if (showLoading) setMessage("Loading the latest inspection records...");
@@ -925,32 +761,28 @@ async function loadReports(showLoading = false) {
 
     const csvText = await response.text();
 
-    if (!csvText.trim() || csvText.trimStart().startsWith("<!DOCTYPE html")) {
+    if (!csvText.trim() ||
+        csvText.trimStart().startsWith("<!DOCTYPE html")) {
       throw new Error(
-        "The published sheet did not return CSV data. Check the published CSV link and sheet access settings."
+        "CSV data was not returned. Check your published CSV URL and Google Sheets publishing settings."
       );
     }
 
     buildReports(csvText);
-    lastLoadedTime = new Date();
-
     renderReports();
 
     setMessage(
-      `Reports updated successfully. Last refreshed: ${
-        lastLoadedTime.toLocaleTimeString()
-      }. Automatic refresh runs every 30 seconds while this page is open.`
+      "Reports updated successfully. Last refreshed: " +
+      new Date().toLocaleTimeString() +
+      ". Automatic refresh runs every 30 seconds while this page is open."
     );
   } catch (error) {
     console.error(error);
-
     setMessage(
       "Could not load reports: " + error.message +
-      " Check the published CSV URL, internet connection, and Google Sheet publishing settings.",
+      " Check your internet connection, published CSV URL, and sheet access settings.",
       true
     );
-
-    if (allReports.length) renderReports();
   } finally {
     loading = false;
   }
@@ -979,10 +811,21 @@ function printOneReport(button) {
   originalList.innerHTML = "";
   originalList.appendChild(selectedReport.cloneNode(true));
 
+  const restore = () => {
+    originalList.innerHTML = originalContent;
+    window.removeEventListener("afterprint", restore);
+  };
+
+  window.addEventListener("afterprint", restore);
   window.print();
 
-  // Restore the report list after the print dialog closes.
-  originalList.innerHTML = originalContent;
+  // Fallback for browsers that don't fire afterprint as expected.
+  setTimeout(() => {
+    if (originalList.children.length === 1 &&
+        originalList.firstElementChild === selectedReport.cloneNode(false)) {
+      restore();
+    }
+  }, 1000);
 }
 
 ["machineSearch", "dateSearch", "statusSearch", "inspectorSearch"]
@@ -993,7 +836,7 @@ function printOneReport(button) {
 
 loadReports(true);
 
-/* Refresh only while the report page is open. */
+/* Refresh while the report page remains open. */
 setInterval(() => loadReports(false), 30000);
 </script>
 
