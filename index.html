@@ -1,27 +1,578 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Technic Report</title>
-    <style>
-        body{
-            background-color: aquamarine;
-        }
-        iframe{
-            width: 20000px;
-            height:10000px;
-        }
-    </style>
-</head>
-<body>
-    <a href="https://etachali2-prog.github.io/To-home/">To home</a>
-    <h1>Technic</h1>
-    
-   <button onclick="window.print()">Print This Sheet</button>
-     
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-     
-    <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS1l0SbrbX0Sfprk8FgH2N_BkSBCqHrnE63nDbA5ZeX6TJpkte16DGmfIMbjHREWkIqE25VXHS_IGmk/pubhtml?gid=0&single=true"></iframe>
+<title>MELBA Technical Report</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: #eaf1f8;
+    color: #243247;
+}
+
+.header {
+    max-width: 1200px;
+    margin: auto auto 20px;
+    padding: 22px;
+    background: #102a43;
+    color: white;
+    border-radius: 12px;
+}
+
+.header h1 {
+    margin: 0 0 8px;
+}
+
+.header p {
+    margin: 0;
+    color: #d7e5f4;
+}
+
+.topbar {
+    max-width: 1200px;
+    margin: 0 auto 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.topbar a,
+.topbar button {
+    display: inline-block;
+    padding: 11px 17px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.home {
+    background: #102a43;
+    color: white;
+}
+
+.refresh {
+    background: #087f5b;
+    color: white;
+}
+
+.print {
+    background: #1769aa;
+    color: white;
+}
+
+#status {
+    max-width: 1200px;
+    margin: 0 auto 15px;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+}
+
+#reports {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.report {
+    background: white;
+    margin-bottom: 24px;
+    padding: 22px;
+    border-radius: 10px;
+    border: 1px solid #d1dce8;
+    box-shadow: 0 3px 10px #102a4310;
+    break-inside: avoid;
+}
+
+.report-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+    border-bottom: 2px solid #1769aa;
+    padding-bottom: 12px;
+    margin-bottom: 18px;
+}
+
+.report-heading h2 {
+    margin: 0;
+    color: #102a43;
+    font-size: 20px;
+}
+
+.record-number {
+    color: #1769aa;
+    font-weight: bold;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.info-box {
+    background: #f3f7fb;
+    border: 1px solid #dbe5ef;
+    padding: 12px;
+    border-radius: 6px;
+    min-width: 0;
+}
+
+.info-box strong {
+    display: block;
+    color: #526579;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.info-box span {
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+.section-title {
+    color: #102a43;
+    font-size: 16px;
+    margin: 20px 0 10px;
+}
+
+.table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+th, td {
+    border: 1px solid #ccd6e0;
+    padding: 10px;
+    text-align: left;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+th {
+    background: #dceaf7;
+    color: #102a43;
+}
+
+.status-ok {
+    color: #087443;
+    font-weight: bold;
+}
+
+.status-not-ok {
+    color: #c62828;
+    font-weight: bold;
+}
+
+.status-other {
+    color: #765600;
+    font-weight: bold;
+}
+
+.empty {
+    background: white;
+    padding: 25px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 8px;
+    }
+
+    .header, .report {
+        padding: 14px;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .report-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    th, td {
+        padding: 7px;
+        font-size: 12px;
+    }
+}
+
+@media print {
+    @page {
+        size: A4 portrait;
+        margin: 10mm;
+    }
+
+    body {
+        padding: 0;
+        background: white;
+    }
+
+    .topbar, #status {
+        display: none !important;
+    }
+
+    .header {
+        background: white;
+        color: black;
+        border: 1px solid #777;
+        border-radius: 0;
+        padding: 12px;
+    }
+
+    .header p {
+        color: black;
+    }
+
+    .report {
+        box-shadow: none;
+        border: 1px solid #999;
+        border-radius: 0;
+        padding: 12px;
+    }
+
+    .table-wrap {
+        overflow: visible;
+    }
+
+    th, td {
+        font-size: 9px;
+        padding: 5px;
+    }
+
+    .info-box {
+        background: white;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <h1>MELBA Technical Department</h1>
+    <p>Daily Technical Inspection Report</p>
+    <p>Maintenance and Inspection Records</p>
+</header>
+
+<div class="topbar">
+    <a class="home"
+       href="https://etachali2-prog.github.io/To-home/">
+       ← To Home
+    </a>
+
+    <button class="refresh" id="refreshBtn"
+            onclick="loadReports()">
+        ↻ Refresh Records
+    </button>
+
+    <button class="print" onclick="window.print()">
+        Print / Save PDF
+    </button>
+</div>
+
+<div id="status" role="status">
+    Loading inspection records...
+</div>
+
+<main id="reports"></main>
+
+<script>
+/*
+  Published Google Sheet.
+  This is the same published spreadsheet used in your iframe.
+*/
+const SHEET_CSV_URL =
+  "https://docs.google.com/spreadsheets/d/e/" +
+  "2PACX-1vS1l0SbrbX0Sfprk8FgH2N_BkSBCqHrnE63nDbA5ZeX6TJpkte16DGmfIMbjHREWkIqE25VXHS_IGmk/" +
+  "pub?gid=0&single=true&output=csv";
+
+
+function parseCSV(text) {
+    const rows = [];
+    let row = [];
+    let field = "";
+    let quoted = false;
+
+    text = text.replace(/^\uFEFF/, "");
+
+    for (let i = 0; i < text.length; i++) {
+        const ch = text[i];
+
+        if (ch === '"') {
+            if (quoted && text[i + 1] === '"') {
+                field += '"';
+                i++;
+            } else {
+                quoted = !quoted;
+            }
+        } else if (ch === "," && !quoted) {
+            row.push(field);
+            field = "";
+        } else if ((ch === "\n" || ch === "\r") && !quoted) {
+            if (ch === "\r" && text[i + 1] === "\n") i++;
+
+            row.push(field);
+
+            if (row.some(value => value.trim() !== "")) {
+                rows.push(row);
+            }
+
+            row = [];
+            field = "";
+        } else {
+            field += ch;
+        }
+    }
+
+    row.push(field);
+
+    if (row.some(value => value.trim() !== "")) {
+        rows.push(row);
+    }
+
+    return rows;
+}
+
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, ch => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[ch]);
+}
+
+
+function valueOf(record, key) {
+    return String(record[key] ?? "").trim();
+}
+
+
+function renderReports(headers, rows) {
+    const container = document.getElementById("reports");
+
+    const records = rows.map(row => {
+        const record = {};
+
+        headers.forEach((header, index) => {
+            record[header] = row[index] ?? "";
+        });
+
+        return record;
+    });
+
+    // Show the newest records first.
+    records.reverse();
+
+    const statusKeys = headers.filter(key =>
+        key.endsWith(" [Status]")
+    );
+
+    const basicKeys = [
+        "Timestamp",
+        "Machine Name",
+        "Inspection Date",
+        "List of Inspectors"
+    ];
+
+    if (records.length === 0) {
+        container.innerHTML =
+            '<div class="empty">No inspection records found.</div>';
+        return;
+    }
+
+    container.innerHTML = records.map((record, index) => {
+        const machine =
+            valueOf(record, "Machine Name") || "Unnamed Machine";
+
+        const info = basicKeys
+            .filter(key => headers.includes(key))
+            .map(key => `
+                <div class="info-box">
+                    <strong>${escapeHTML(key)}</strong>
+                    <span>${escapeHTML(valueOf(record, key) || "-")}</span>
+                </div>
+            `).join("");
+
+        const checklistRows = statusKeys.map(statusKey => {
+            const item = statusKey.replace(/ \[Status\]$/, "");
+            const status = valueOf(record, statusKey) || "Not Checked";
+            const remarks = valueOf(record, item + " [Remarks]");
+
+            let statusClass = "status-other";
+
+            if (status.toLowerCase() === "ok") {
+                statusClass = "status-ok";
+            } else if (status.toLowerCase() === "not ok") {
+                statusClass = "status-not-ok";
+            }
+
+            return `
+                <tr>
+                    <td>${escapeHTML(item)}</td>
+                    <td class="${statusClass}">
+                        ${escapeHTML(status)}
+                    </td>
+                    <td>${escapeHTML(remarks || "-")}</td>
+                </tr>
+            `;
+        }).join("");
+
+        // Also display other columns that aren't checklist fields.
+        const known = new Set([
+            ...basicKeys,
+            ...statusKeys,
+            ...headers.filter(key => key.endsWith(" [Remarks]"))
+        ]);
+
+        const otherFields = headers
+            .filter(key => !known.has(key))
+            .filter(key => valueOf(record, key) !== "")
+            .map(key => `
+                <div class="info-box">
+                    <strong>${escapeHTML(key)}</strong>
+                    <span>${escapeHTML(valueOf(record, key))}</span>
+                </div>
+            `).join("");
+
+        return `
+            <article class="report">
+                <div class="report-heading">
+                    <h2>${escapeHTML(machine)}</h2>
+                    <span class="record-number">
+                        Record ${records.length - index}
+                    </span>
+                </div>
+
+                <div class="info-grid">
+                    ${info}
+                    ${otherFields}
+                </div>
+
+                <h3 class="section-title">Inspection Results</h3>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Inspection Item</th>
+                                <th>Status</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${checklistRows || `
+                                <tr>
+                                    <td colspan="3">
+                                        No status columns found.
+                                        Check your Google Sheet headers.
+                                    </td>
+                                </tr>
+                            `}
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+        `;
+    }).join("");
+}
+
+
+async function loadReports() {
+    const status = document.getElementById("status");
+    const button = document.getElementById("refreshBtn");
+
+    status.textContent = "Loading Google Sheets records...";
+    button.disabled = true;
+
+    try {
+        const separator = SHEET_CSV_URL.includes("?") ? "&" : "?";
+
+        const response = await fetch(
+            SHEET_CSV_URL + separator + "_refresh=" + Date.now()
+        );
+
+        if (!response.ok) {
+            throw new Error("Google Sheets returned HTTP " + response.status);
+        }
+
+        const csvText = await response.text();
+
+        // A published sheet should return CSV, not a Google error page.
+        if (csvText.trim().startsWith("<")) {
+            throw new Error(
+                "Google returned a webpage instead of CSV. " +
+                "Check that the correct sheet is published."
+            );
+        }
+
+        const data = parseCSV(csvText);
+
+        if (data.length < 2) {
+            document.getElementById("reports").innerHTML =
+                '<div class="empty">No saved records found, or the sheet is empty.</div>';
+
+            status.textContent = "No inspection records found.";
+            return;
+        }
+
+        const headers = data[0].map(value => value.trim());
+        const rows = data.slice(1);
+
+        renderReports(headers, rows);
+
+        status.textContent =
+            "Loaded " + rows.length + " inspection record(s).";
+
+    } catch (error) {
+        console.error(error);
+
+        status.textContent =
+            "Could not load the records. " + error.message;
+
+        document.getElementById("reports").innerHTML = `
+            <div class="empty">
+                <h3>Unable to load records</h3>
+                <p>Check your internet connection and ensure the
+                Google Sheet is published to the web.</p>
+                <p>If the browser blocks the CSV request, use your
+                Google Apps Script web app as a JSON data source.</p>
+            </div>
+        `;
+    } finally {
+        button.disabled = false;
+    }
+}
+
+loadReports();
+</script>
+
 </body>
 </html>
-
+```
