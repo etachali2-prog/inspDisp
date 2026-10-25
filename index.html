@@ -5,267 +5,440 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MELBA Technical Report</title>
+<title>MELBA Technical Inspection Reports</title>
 
 <style>
+:root {
+  --navy: #142b4a;
+  --blue: #1d4e89;
+  --gold: #d6a746;
+  --bg: #f2f5fa;
+  --text: #243247;
+  --muted: #68778b;
+  --border: #dce3ed;
+}
+
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    background: #eaf1f8;
-    color: #243247;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button, input, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 7px;
+  padding: 11px 15px;
+  font-weight: 700;
 }
 
 .header {
-    max-width: 1200px;
-    margin: auto auto 20px;
-    padding: 22px;
-    background: #102a43;
-    color: white;
-    border-radius: 12px;
+  background: var(--navy);
+  color: white;
+  padding: 24px;
+  border-bottom: 5px solid var(--gold);
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
 }
 
 .header h1 {
-    margin: 0 0 8px;
+  margin: 0 0 8px;
+  font-size: 25px;
 }
 
 .header p {
-    margin: 0;
-    color: #d7e5f4;
+  margin: 0;
+  color: #dbe5f1;
+  font-size: 14px;
 }
 
-.topbar {
-    max-width: 1200px;
-    margin: 0 auto 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
+.header a {
+  color: white;
+  text-decoration: none;
 }
 
-.topbar a,
-.topbar button {
-    display: inline-block;
-    padding: 11px 17px;
-    border: none;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
+.container {
+  max-width: 1200px;
+  margin: 24px auto;
+  padding: 0 18px;
 }
 
-.home {
-    background: #102a43;
-    color: white;
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
 }
 
-.refresh {
-    background: #087f5b;
-    color: white;
+.btn-primary {
+  background: var(--blue);
+  color: white;
 }
 
-.print {
-    background: #1769aa;
-    color: white;
+.btn-gold {
+  background: var(--gold);
+  color: #182536;
 }
 
-#status {
-    max-width: 1200px;
-    margin: 0 auto 15px;
-    font-weight: bold;
-    overflow-wrap: anywhere;
+.btn-light {
+  background: white;
+  color: var(--navy);
+  border: 1px solid var(--border);
 }
 
-#reports {
-    max-width: 1200px;
-    margin: auto;
+.filters {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(150px, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.field label {
+  display: block;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 7px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  background: white;
+  color: var(--text);
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.summary-card {
+  background: white;
+  padding: 18px;
+  border-radius: 11px;
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--blue);
+}
+
+.summary-card.warning {
+  border-left-color: #d97706;
+}
+
+.summary-card.good {
+  border-left-color: #168354;
+}
+
+.summary-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.summary-card strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 27px;
+}
+
+.status-message {
+  padding: 12px 15px;
+  margin-bottom: 18px;
+  border-radius: 8px;
+  background: #e8eef8;
+  color: var(--navy);
+  font-size: 14px;
+}
+
+.status-message.error {
+  background: #fff0f0;
+  color: #a32121;
+}
+
+.report-list {
+  display: grid;
+  gap: 20px;
 }
 
 .report {
-    background: white;
-    margin-bottom: 24px;
-    padding: 22px;
-    border-radius: 10px;
-    border: 1px solid #d1dce8;
-    box-shadow: 0 3px 10px #102a4310;
-    break-inside: avoid;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px #152c4610;
+  break-inside: avoid;
 }
 
-.report-heading {
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    align-items: center;
-    border-bottom: 2px solid #1769aa;
-    padding-bottom: 12px;
-    margin-bottom: 18px;
+.report-header {
+  background: #f8fafc;
+  padding: 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  flex-wrap: wrap;
 }
 
-.report-heading h2 {
-    margin: 0;
-    color: #102a43;
-    font-size: 20px;
+.report-header h2 {
+  margin: 0 0 9px;
+  color: var(--navy);
+  font-size: 19px;
 }
 
-.record-number {
-    color: #1769aa;
-    font-weight: bold;
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  color: var(--muted);
+  font-size: 13px;
 }
 
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-    margin-bottom: 22px;
+.report-content {
+  padding: 18px;
 }
 
-.info-box {
-    background: #f3f7fb;
-    border: 1px solid #dbe5ef;
-    padding: 12px;
-    border-radius: 6px;
-    min-width: 0;
-}
-
-.info-box strong {
-    display: block;
-    color: #526579;
-    font-size: 12px;
-    margin-bottom: 6px;
-}
-
-.info-box span {
-    overflow-wrap: anywhere;
-    white-space: pre-wrap;
-}
-
-.section-title {
-    color: #102a43;
-    font-size: 16px;
-    margin: 20px 0 10px;
+.report-title {
+  color: var(--navy);
+  font-weight: 700;
+  margin: 0 0 12px;
 }
 
 .table-wrap {
-    width: 100%;
-    overflow-x: auto;
+  overflow-x: auto;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
 }
 
 th, td {
-    border: 1px solid #ccd6e0;
-    padding: 10px;
-    text-align: left;
-    font-size: 13px;
-    overflow-wrap: anywhere;
+  padding: 10px;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
 }
 
 th {
-    background: #dceaf7;
-    color: #102a43;
+  background: #edf2f8;
+  color: var(--navy);
 }
 
-.status-ok {
-    color: #087443;
-    font-weight: bold;
+.badge {
+  display: inline-block;
+  border-radius: 20px;
+  padding: 5px 9px;
+  font-weight: 700;
+  font-size: 11px;
+  white-space: nowrap;
 }
 
-.status-not-ok {
-    color: #c62828;
-    font-weight: bold;
+.badge-ok {
+  background: #d9f5e6;
+  color: #12653b;
 }
 
-.status-other {
-    color: #765600;
-    font-weight: bold;
+.badge-not-ok {
+  background: #ffe0e0;
+  color: #a51f1f;
+}
+
+.badge-not-checked {
+  background: #fff0c7;
+  color: #855900;
+}
+
+.badge-other {
+  background: #e7edf5;
+  color: #34445a;
+}
+
+.result-line {
+  margin-top: 16px;
+  padding: 12px;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  font-size: 13px;
+}
+
+.signature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 35px;
+}
+
+.signature {
+  padding-top: 34px;
+  border-bottom: 1px solid #334155;
+  min-height: 58px;
+  font-size: 12px;
+  color: #334155;
+}
+
+.signature span {
+  display: block;
+  background: white;
+  width: fit-content;
+  padding-right: 8px;
+  position: relative;
+  top: 7px;
 }
 
 .empty {
-    background: white;
-    padding: 25px;
-    text-align: center;
-    border-radius: 8px;
+  background: white;
+  padding: 35px;
+  text-align: center;
+  border-radius: 12px;
+  color: var(--muted);
+  border: 1px solid var(--border);
 }
 
-@media (max-width: 600px) {
-    body {
-        padding: 8px;
-    }
+.footer {
+  text-align: center;
+  padding: 28px 12px;
+  color: var(--muted);
+  font-size: 12px;
+}
 
-    .header, .report {
-        padding: 14px;
-    }
+@media (max-width: 800px) {
+  .filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 
-    .info-grid {
-        grid-template-columns: 1fr;
-    }
+  .summary {
+    grid-template-columns: 1fr;
+  }
 
-    .report-heading {
-        align-items: flex-start;
-        flex-direction: column;
-    }
+  .signature-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
 
-    th, td {
-        padding: 7px;
-        font-size: 12px;
-    }
+@media (max-width: 480px) {
+  .filters {
+    grid-template-columns: 1fr;
+  }
+
+  .header h1 {
+    font-size: 21px;
+  }
+}
+
+@page {
+  size: A4;
+  margin: 12mm;
 }
 
 @media print {
-    @page {
-        size: A4 portrait;
-        margin: 10mm;
-    }
+  body {
+    background: white;
+    color: black;
+    font-size: 10pt;
+  }
 
-    body {
-        padding: 0;
-        background: white;
-    }
+  .no-print,
+  .toolbar,
+  .filters,
+  .summary,
+  .footer,
+  .screen-status {
+    display: none !important;
+  }
 
-    .topbar, #status {
-        display: none !important;
-    }
+  .container {
+    max-width: none;
+    padding: 0;
+    margin: 0;
+  }
 
-    .header {
-        background: white;
-        color: black;
-        border: 1px solid #777;
-        border-radius: 0;
-        padding: 12px;
-    }
+  .header {
+    background: white !important;
+    color: black !important;
+    padding: 12px 0;
+    border-bottom: 3px solid #b18a32;
+  }
 
-    .header p {
-        color: black;
-    }
+  .header p,
+  .header a {
+    color: black !important;
+  }
 
-    .report {
-        box-shadow: none;
-        border: 1px solid #999;
-        border-radius: 0;
-        padding: 12px;
-    }
+  .header h1 {
+    font-size: 17pt;
+  }
 
-    .table-wrap {
-        overflow: visible;
-    }
+  .report-list {
+    display: block;
+  }
 
-    th, td {
-        font-size: 9px;
-        padding: 5px;
-    }
+  .report {
+    border: 1px solid #999;
+    border-radius: 0;
+    box-shadow: none;
+    margin-bottom: 18px;
+    break-inside: avoid;
+  }
 
-    .info-box {
-        background: white;
-    }
+  .report-header {
+    background: white !important;
+  }
+
+  .report-content {
+    padding: 12px;
+  }
+
+  th {
+    background: #eee !important;
+    color: black;
+  }
+
+  th, td {
+    padding: 6px;
+    font-size: 9pt;
+  }
+
+  .signature-grid {
+    gap: 15px;
+    margin-top: 30px;
+  }
+
+  .signature {
+    font-size: 9pt;
+  }
+
+  .report-header h2 {
+    color: black;
+  }
 }
 </style>
 </head>
@@ -273,304 +446,555 @@ th {
 <body>
 
 <header class="header">
-    <h1>MELBA Technical Department</h1>
-    <p>Daily Technical Inspection Report</p>
-    <p>Maintenance and Inspection Records</p>
+  <div class="header-inner">
+    <div>
+      <h1>MELBA PRINTING, PUBLISHING &amp; PACKAGING S.C.</h1>
+      <p>Technical Department | Daily Technical Inspection Reports</p>
+    </div>
+
+    <a href="https://etachali2-prog.github.io/To-home/">
+      ← Back to Home
+    </a>
+  </div>
 </header>
 
-<div class="topbar">
-    <a class="home"
-       href="https://etachali2-prog.github.io/To-home/">
-       ← To Home
-    </a>
+<main class="container">
 
-    <button class="refresh" id="refreshBtn"
-            onclick="loadReports()">
-        ↻ Refresh Records
+  <div class="toolbar no-print">
+    <button class="btn-primary" onclick="loadReports(true)">
+      ↻ Refresh Reports
     </button>
 
-    <button class="print" onclick="window.print()">
-        Print / Save PDF
+    <button class="btn-gold" onclick="printReports()">
+      Print / Save as PDF
     </button>
-</div>
 
-<div id="status" role="status">
+    <button class="btn-light" onclick="clearFilters()">
+      Clear Filters
+    </button>
+  </div>
+
+  <section class="filters no-print">
+    <div class="field">
+      <label for="machineSearch">Search machine</label>
+      <input id="machineSearch"
+             type="search"
+             placeholder="Enter machine name">
+    </div>
+
+    <div class="field">
+      <label for="dateSearch">Inspection date</label>
+      <input id="dateSearch" type="date">
+    </div>
+
+    <div class="field">
+      <label for="statusSearch">Inspection status</label>
+      <select id="statusSearch">
+        <option value="">All statuses</option>
+        <option value="NOT OK">Not OK</option>
+        <option value="OK">OK</option>
+        <option value="NOT CHECKED">Not Checked</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="inspectorSearch">Inspector</label>
+      <input id="inspectorSearch"
+             type="search"
+             placeholder="Inspector name">
+    </div>
+  </section>
+
+  <section class="summary">
+    <div class="summary-card">
+      <span>Reports displayed</span>
+      <strong id="totalReports">0</strong>
+    </div>
+
+    <div class="summary-card warning">
+      <span>Reports with Not OK items</span>
+      <strong id="problemReports">0</strong>
+    </div>
+
+    <div class="summary-card good">
+      <span>Reports with all checked items OK</span>
+      <strong id="passedReports">0</strong>
+    </div>
+  </section>
+
+  <div id="message" class="status-message screen-status">
     Loading inspection records...
-</div>
+  </div>
 
-<main id="reports"></main>
+  <section id="reportList" class="report-list"></section>
+
+</main>
+
+<footer class="footer">
+  MELBA Technical Department | Preventive Maintenance &amp; Daily Inspection
+</footer>
 
 <script>
+"use strict";
+
 /*
-  Published Google Sheet.
-  This is the same published spreadsheet used in your iframe.
+  This must be the published CSV URL for your Google Sheet.
+  It is different from the spreadsheet's normal editing URL.
 */
-const SHEET_CSV_URL =
-  "https://docs.google.com/spreadsheets/d/e/" +
-  "2PACX-1vS1l0SbrbX0Sfprk8FgH2N_BkSBCqHrnE63nDbA5ZeX6TJpkte16DGmfIMbjHREWkIqE25VXHS_IGmk/" +
-  "pub?gid=0&single=true&output=csv";
+const CSV_URL =
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vS1l0SbrbX0Sfprk8FgH2N_BkSBCqHrnE63nDbA5ZeX6TJpkte16DGmfIMbjHREWkIqE25VXHS_IGmk/pub?gid=0&single=true&output=csv";
 
+let allReports = [];
+let lastLoadedTime = null;
+let loading = false;
 
-function parseCSV(text) {
-    const rows = [];
-    let row = [];
-    let field = "";
-    let quoted = false;
+const $ = id => document.getElementById(id);
 
-    text = text.replace(/^\uFEFF/, "");
-
-    for (let i = 0; i < text.length; i++) {
-        const ch = text[i];
-
-        if (ch === '"') {
-            if (quoted && text[i + 1] === '"') {
-                field += '"';
-                i++;
-            } else {
-                quoted = !quoted;
-            }
-        } else if (ch === "," && !quoted) {
-            row.push(field);
-            field = "";
-        } else if ((ch === "\n" || ch === "\r") && !quoted) {
-            if (ch === "\r" && text[i + 1] === "\n") i++;
-
-            row.push(field);
-
-            if (row.some(value => value.trim() !== "")) {
-                rows.push(row);
-            }
-
-            row = [];
-            field = "";
-        } else {
-            field += ch;
-        }
-    }
-
-    row.push(field);
-
-    if (row.some(value => value.trim() !== "")) {
-        rows.push(row);
-    }
-
-    return rows;
+function setMessage(message, isError = false) {
+  const el = $("message");
+  el.textContent = message;
+  el.classList.toggle("error", isError);
 }
-
 
 function escapeHTML(value) {
-    return String(value ?? "").replace(/[&<>"']/g, ch => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
-    })[ch]);
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
 }
 
+/* CSV parser that handles quoted cells and commas inside quoted text. */
+function parseCSV(text) {
+  const rows = [];
+  let row = [];
+  let cell = "";
+  let quoted = false;
 
-function valueOf(record, key) {
-    return String(record[key] ?? "").trim();
+  text = text.replace(/^\uFEFF/, "");
+
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+
+    if (quoted) {
+      if (char === '"' && text[i + 1] === '"') {
+        cell += '"';
+        i++;
+      } else if (char === '"') {
+        quoted = false;
+      } else {
+        cell += char;
+      }
+    } else {
+      if (char === '"' && cell === "") {
+        quoted = true;
+      } else if (char === ",") {
+        row.push(cell);
+        cell = "";
+      } else if (char === "\n") {
+        row.push(cell);
+        if (row.some(value => value.trim() !== "")) rows.push(row);
+        row = [];
+        cell = "";
+      } else if (char !== "\r") {
+        cell += char;
+      }
+    }
+  }
+
+  row.push(cell);
+  if (row.some(value => value.trim() !== "")) rows.push(row);
+
+  return rows;
 }
 
+function normalizeHeader(value) {
+  return String(value ?? "").trim().toLowerCase();
+}
 
-function renderReports(headers, rows) {
-    const container = document.getElementById("reports");
+function findColumn(headers, candidates) {
+  const normalized = headers.map(normalizeHeader);
 
-    const records = rows.map(row => {
-        const record = {};
+  for (const candidate of candidates) {
+    const index = normalized.indexOf(normalizeHeader(candidate));
+    if (index !== -1) return index;
+  }
 
-        headers.forEach((header, index) => {
-            record[header] = row[index] ?? "";
-        });
+  return -1;
+}
 
-        return record;
-    });
+function getCell(row, index) {
+  return index >= 0 ? String(row[index] ?? "").trim() : "";
+}
 
-    // Show the newest records first.
-    records.reverse();
+function normalizeStatus(value) {
+  const status = String(value ?? "").trim().toUpperCase();
 
-    const statusKeys = headers.filter(key =>
-        key.endsWith(" [Status]")
+  if (status === "OK") return "OK";
+  if (status === "NOT OK") return "NOT OK";
+  if (status === "NOT CHECKED") return "NOT CHECKED";
+
+  return status;
+}
+
+function statusClass(status) {
+  if (status === "OK") return "badge-ok";
+  if (status === "NOT OK") return "badge-not-ok";
+  if (status === "NOT CHECKED") return "badge-not-checked";
+  return "badge-other";
+}
+
+function statusBadge(status) {
+  return `<span class="badge ${statusClass(status)}">${
+    escapeHTML(status || "Not recorded")
+  }</span>`;
+}
+
+function normalizeDate(value) {
+  const text = String(value ?? "").trim();
+  if (!text) return "";
+
+  // Recognize YYYY-MM-DD or a timestamp beginning with that date.
+  const iso = text.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (iso) return `${iso[1]}-${iso[2]}-${iso[3]}`;
+
+  // Recognize DD/MM/YYYY and DD-MM-YYYY.
+  const dmy = text.match(/^(\d{1,2})[/-](\d{1,2})[/-](\d{4})/);
+  if (dmy) {
+    return `${dmy[3]}-${dmy[2].padStart(2, "0")}-${dmy[1].padStart(2, "0")}`;
+  }
+
+  const parsed = new Date(text);
+  if (!Number.isNaN(parsed.getTime())) {
+    return [
+      parsed.getFullYear(),
+      String(parsed.getMonth() + 1).padStart(2, "0"),
+      String(parsed.getDate()).padStart(2, "0")
+    ].join("-");
+  }
+
+  return "";
+}
+
+function formatDate(value) {
+  const normalized = normalizeDate(value);
+  if (!normalized) return value || "Not recorded";
+
+  const parts = normalized.split("-");
+  return `${parts[2]}/${parts[1]}/${parts[0]}`;
+}
+
+function buildReports(csvText) {
+  const rows = parseCSV(csvText);
+
+  if (rows.length < 2) {
+    allReports = [];
+    return;
+  }
+
+  const headers = rows[0].map(value => String(value).trim());
+
+  const machineIndex = findColumn(headers, [
+    "Machine Name", "Machine"
+  ]);
+
+  const dateIndex = findColumn(headers, [
+    "Inspection Date", "Date"
+  ]);
+
+  const inspectorIndex = findColumn(headers, [
+    "List of Inspectors", "Inspectors", "Inspector"
+  ]);
+
+  if (machineIndex === -1 || dateIndex === -1) {
+    throw new Error(
+      'The sheet must contain "Machine Name" and "Inspection Date" columns. Check the first row of your Google Sheet.'
+    );
+  }
+
+  const statusColumns = [];
+  const remarksColumns = [];
+
+  headers.forEach((header, index) => {
+    const match = header.match(/^(.*?)\s*\[(Status|Remarks)\]$/i);
+    if (!match) return;
+
+    const itemName = match[1].trim();
+    const type = match[2].toLowerCase();
+
+    if (type === "status") {
+      statusColumns.push({
+        name: itemName,
+        index,
+        remarksIndex: -1
+      });
+    } else {
+      remarksColumns.push({
+        name: itemName,
+        index
+      });
+    }
+  });
+
+  statusColumns.forEach(item => {
+    const remarks = remarksColumns.find(
+      col => col.name.toLowerCase() === item.name.toLowerCase()
     );
 
-    const basicKeys = [
-        "Timestamp",
-        "Machine Name",
-        "Inspection Date",
-        "List of Inspectors"
-    ];
+    if (remarks) item.remarksIndex = remarks.index;
+  });
 
-    if (records.length === 0) {
-        container.innerHTML =
-            '<div class="empty">No inspection records found.</div>';
-        return;
-    }
+  allReports = rows.slice(1)
+    .filter(row => row.some(cell => String(cell ?? "").trim() !== ""))
+    .map((row, index) => {
+      const checks = statusColumns.map(item => ({
+        name: item.name,
+        status: normalizeStatus(getCell(row, item.index)),
+        remarks: item.remarksIndex >= 0
+          ? getCell(row, item.remarksIndex)
+          : ""
+      }));
 
-    container.innerHTML = records.map((record, index) => {
-        const machine =
-            valueOf(record, "Machine Name") || "Unnamed Machine";
-
-        const info = basicKeys
-            .filter(key => headers.includes(key))
-            .map(key => `
-                <div class="info-box">
-                    <strong>${escapeHTML(key)}</strong>
-                    <span>${escapeHTML(valueOf(record, key) || "-")}</span>
-                </div>
-            `).join("");
-
-        const checklistRows = statusKeys.map(statusKey => {
-            const item = statusKey.replace(/ \[Status\]$/, "");
-            const status = valueOf(record, statusKey) || "Not Checked";
-            const remarks = valueOf(record, item + " [Remarks]");
-
-            let statusClass = "status-other";
-
-            if (status.toLowerCase() === "ok") {
-                statusClass = "status-ok";
-            } else if (status.toLowerCase() === "not ok") {
-                statusClass = "status-not-ok";
-            }
-
-            return `
-                <tr>
-                    <td>${escapeHTML(item)}</td>
-                    <td class="${statusClass}">
-                        ${escapeHTML(status)}
-                    </td>
-                    <td>${escapeHTML(remarks || "-")}</td>
-                </tr>
-            `;
-        }).join("");
-
-        // Also display other columns that aren't checklist fields.
-        const known = new Set([
-            ...basicKeys,
-            ...statusKeys,
-            ...headers.filter(key => key.endsWith(" [Remarks]"))
-        ]);
-
-        const otherFields = headers
-            .filter(key => !known.has(key))
-            .filter(key => valueOf(record, key) !== "")
-            .map(key => `
-                <div class="info-box">
-                    <strong>${escapeHTML(key)}</strong>
-                    <span>${escapeHTML(valueOf(record, key))}</span>
-                </div>
-            `).join("");
-
-        return `
-            <article class="report">
-                <div class="report-heading">
-                    <h2>${escapeHTML(machine)}</h2>
-                    <span class="record-number">
-                        Record ${records.length - index}
-                    </span>
-                </div>
-
-                <div class="info-grid">
-                    ${info}
-                    ${otherFields}
-                </div>
-
-                <h3 class="section-title">Inspection Results</h3>
-
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Inspection Item</th>
-                                <th>Status</th>
-                                <th>Remarks</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${checklistRows || `
-                                <tr>
-                                    <td colspan="3">
-                                        No status columns found.
-                                        Check your Google Sheet headers.
-                                    </td>
-                                </tr>
-                            `}
-                        </tbody>
-                    </table>
-                </div>
-            </article>
-        `;
-    }).join("");
+      return {
+        id: index,
+        machine: getCell(row, machineIndex),
+        date: getCell(row, dateIndex),
+        dateISO: normalizeDate(getCell(row, dateIndex)),
+        inspector: getCell(row, inspectorIndex),
+        checks
+      };
+    })
+    .reverse();
 }
 
+function reportHasNotOK(report) {
+  return report.checks.some(check => check.status === "NOT OK");
+}
 
-async function loadReports() {
-    const status = document.getElementById("status");
-    const button = document.getElementById("refreshBtn");
+function reportHasAllCheckedOK(report) {
+  const checked = report.checks.filter(check =>
+    check.status === "OK" || check.status === "NOT OK"
+  );
 
-    status.textContent = "Loading Google Sheets records...";
-    button.disabled = true;
+  return checked.length > 0 &&
+    checked.every(check => check.status === "OK");
+}
 
-    try {
-        const separator = SHEET_CSV_URL.includes("?") ? "&" : "?";
+function getFilteredReports() {
+  const machine = $("machineSearch").value.trim().toLowerCase();
+  const date = $("dateSearch").value;
+  const status = $("statusSearch").value;
+  const inspector = $("inspectorSearch").value.trim().toLowerCase();
 
-        const response = await fetch(
-            SHEET_CSV_URL + separator + "_refresh=" + Date.now()
-        );
+  return allReports.filter(report => {
+    const machineMatch = report.machine.toLowerCase().includes(machine);
+    const dateMatch = !date || report.dateISO === date;
+    const inspectorMatch = report.inspector.toLowerCase().includes(inspector);
 
-        if (!response.ok) {
-            throw new Error("Google Sheets returned HTTP " + response.status);
-        }
+    const statusMatch = !status || report.checks.some(
+      check => check.status === status
+    );
 
-        const csvText = await response.text();
+    return machineMatch && dateMatch && inspectorMatch && statusMatch;
+  });
+}
 
-        // A published sheet should return CSV, not a Google error page.
-        if (csvText.trim().startsWith("<")) {
-            throw new Error(
-                "Google returned a webpage instead of CSV. " +
-                "Check that the correct sheet is published."
-            );
-        }
+function renderReports() {
+  const reports = getFilteredReports();
 
-        const data = parseCSV(csvText);
+  $("totalReports").textContent = reports.length;
+  $("problemReports").textContent =
+    reports.filter(reportHasNotOK).length;
+  $("passedReports").textContent =
+    reports.filter(reportHasAllCheckedOK).length;
 
-        if (data.length < 2) {
-            document.getElementById("reports").innerHTML =
-                '<div class="empty">No saved records found, or the sheet is empty.</div>';
+  if (reports.length === 0) {
+    $("reportList").innerHTML =
+      '<div class="empty">No inspection reports match your filters.</div>';
+    return;
+  }
 
-            status.textContent = "No inspection records found.";
-            return;
-        }
+  $("reportList").innerHTML = reports.map((report, index) => {
+    const checks = report.checks;
 
-        const headers = data[0].map(value => value.trim());
-        const rows = data.slice(1);
+    const checkRows = checks.length
+      ? checks.map(check => `
+          <tr>
+            <td>${escapeHTML(check.name)}</td>
+            <td>${statusBadge(check.status)}</td>
+            <td>${escapeHTML(check.remarks || "—")}</td>
+          </tr>
+        `).join("")
+      : `<tr><td colspan="3">
+          No inspection status columns were found. Check the sheet headers.
+        </td></tr>`;
 
-        renderReports(headers, rows);
+    const notOKCount = checks.filter(
+      check => check.status === "NOT OK"
+    ).length;
 
-        status.textContent =
-            "Loaded " + rows.length + " inspection record(s).";
+    const notCheckedCount = checks.filter(
+      check => check.status === "NOT CHECKED"
+    ).length;
 
-    } catch (error) {
-        console.error(error);
+    let resultText = "No status data recorded";
 
-        status.textContent =
-            "Could not load the records. " + error.message;
+    if (checks.length) {
+      resultText =
+        `${notOKCount} Not OK item(s) · ` +
+        `${notCheckedCount} Not Checked item(s)`;
+    }
 
-        document.getElementById("reports").innerHTML = `
-            <div class="empty">
-                <h3>Unable to load records</h3>
-                <p>Check your internet connection and ensure the
-                Google Sheet is published to the web.</p>
-                <p>If the browser blocks the CSV request, use your
-                Google Apps Script web app as a JSON data source.</p>
+    return `
+      <article class="report">
+        <div class="report-header">
+          <div>
+            <h2>Daily Technical Inspection Report</h2>
+            <div class="meta">
+              <span><strong>Machine:</strong>
+                ${escapeHTML(report.machine || "Not recorded")}</span>
+              <span><strong>Date:</strong>
+                ${escapeHTML(formatDate(report.date))}</span>
+              <span><strong>Inspector(s):</strong>
+                ${escapeHTML(report.inspector || "Not recorded")}</span>
             </div>
-        `;
-    } finally {
-        button.disabled = false;
-    }
+          </div>
+
+          <button class="btn-light no-print"
+            onclick="printOneReport(this)">
+            Print This Report
+          </button>
+        </div>
+
+        <div class="report-content">
+          <p class="report-title">Inspection Checklist</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:40%">Inspection Item</th>
+                  <th style="width:20%">Status</th>
+                  <th>Remarks / Findings</th>
+                </tr>
+              </thead>
+              <tbody>${checkRows}</tbody>
+            </table>
+          </div>
+
+          <div class="result-line">
+            <strong>Inspection Summary:</strong>
+            ${escapeHTML(resultText)}
+          </div>
+
+          <div class="signature-grid">
+            <div class="signature">
+              <span>Technician / Inspector — Signature &amp; Date</span>
+            </div>
+            <div class="signature">
+              <span>Technical Team Leader — Signature &amp; Date</span>
+            </div>
+            <div class="signature">
+              <span>Production Representative — Signature &amp; Date</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join("");
 }
 
-loadReports();
+async function loadReports(showLoading = false) {
+  if (loading) return;
+
+  loading = true;
+
+  if (showLoading) setMessage("Loading the latest inspection records...");
+
+  try {
+    const response = await fetch(
+      CSV_URL + "&_refresh=" + Date.now(),
+      { cache: "no-store" }
+    );
+
+    if (!response.ok) {
+      throw new Error("Google Sheets returned HTTP " + response.status);
+    }
+
+    const csvText = await response.text();
+
+    if (!csvText.trim() || csvText.trimStart().startsWith("<!DOCTYPE html")) {
+      throw new Error(
+        "The published sheet did not return CSV data. Check the published CSV link and sheet access settings."
+      );
+    }
+
+    buildReports(csvText);
+    lastLoadedTime = new Date();
+
+    renderReports();
+
+    setMessage(
+      `Reports updated successfully. Last refreshed: ${
+        lastLoadedTime.toLocaleTimeString()
+      }. Automatic refresh runs every 30 seconds while this page is open.`
+    );
+  } catch (error) {
+    console.error(error);
+
+    setMessage(
+      "Could not load reports: " + error.message +
+      " Check the published CSV URL, internet connection, and Google Sheet publishing settings.",
+      true
+    );
+
+    if (allReports.length) renderReports();
+  } finally {
+    loading = false;
+  }
+}
+
+function clearFilters() {
+  $("machineSearch").value = "";
+  $("dateSearch").value = "";
+  $("statusSearch").value = "";
+  $("inspectorSearch").value = "";
+  renderReports();
+}
+
+function printReports() {
+  renderReports();
+  window.print();
+}
+
+function printOneReport(button) {
+  const selectedReport = button.closest(".report");
+  if (!selectedReport) return;
+
+  const originalList = $("reportList");
+  const originalContent = originalList.innerHTML;
+
+  originalList.innerHTML = "";
+  originalList.appendChild(selectedReport.cloneNode(true));
+
+  window.print();
+
+  // Restore the report list after the print dialog closes.
+  originalList.innerHTML = originalContent;
+}
+
+["machineSearch", "dateSearch", "statusSearch", "inspectorSearch"]
+  .forEach(id => {
+    $(id).addEventListener("input", renderReports);
+    $(id).addEventListener("change", renderReports);
+  });
+
+loadReports(true);
+
+/* Refresh only while the report page is open. */
+setInterval(() => loadReports(false), 30000);
 </script>
 
 </body>
